@@ -1,0 +1,20 @@
+version: "3"
+services:
+  template:
+    command: yarn dev
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgres://paul:postgres@db:5432/template
+    volumes:
+      - .:/template
+
+  db:
+    image: postgres:11.2-alpine
+    environment:
+      POSTGRES_USER: paul
+      POSTGRES_PASSWORD: postgres

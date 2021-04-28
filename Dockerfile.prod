@@ -1,0 +1,17 @@
+FROM node:12.18-alpine
+
+RUN mkdir -p /template
+COPY . /template
+WORKDIR /template
+
+RUN set -ex; \
+    apk add postgresql-client; \
+    yarn global add knex;
+
+RUN yarn install
+
+ENV NODE_ENV=production
+
+COPY . /template
+
+EXPOSE 4000
